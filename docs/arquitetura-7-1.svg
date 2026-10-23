@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#ffffff"/>
+  <text x="800" y="58" text-anchor="middle" font-size="34" font-weight="bold" fill="#111827">Aplicativo da Livraria — Arquitetura Monolítica Modular</text>
+
+  <!-- Usuários -->
+  <g fill="none" stroke="#1f2937" stroke-width="3">
+    <circle cx="140" cy="300" r="26"/>
+    <path d="M95,375 Q95,335 140,335 Q185,335 185,375"/>
+    <circle cx="140" cy="510" r="26"/>
+    <path d="M95,585 Q95,545 140,545 Q185,545 185,585"/>
+  </g>
+  <text x="140" y="410" text-anchor="middle" font-size="20" fill="#111827">Cliente</text>
+  <text x="140" y="434" text-anchor="middle" font-size="16" fill="#4b5563">(navegador / celular)</text>
+  <text x="140" y="620" text-anchor="middle" font-size="20" fill="#111827">Funcionário</text>
+  <text x="140" y="644" text-anchor="middle" font-size="16" fill="#4b5563">(balcão da loja)</text>
+  <line x1="200" y1="360" x2="335" y2="420" stroke="#1f2937" stroke-width="3" marker-end="url(#seta)"/>
+  <line x1="200" y1="570" x2="335" y2="470" stroke="#1f2937" stroke-width="3" marker-end="url(#seta)"/>
+  <text x="270" y="440" text-anchor="middle" font-size="18" fill="#111827">HTTP</text>
+
+  <!-- Aplicação -->
+  <rect x="340" y="100" width="900" height="610" rx="18" fill="#eef2ff" stroke="#1d4ed8" stroke-width="3"/>
+  <text x="790" y="136" text-anchor="middle" font-size="24" font-weight="bold" fill="#1e3a8a">Aplicação Livraria (Python + Flask)</text>
+
+  <g font-size="19" text-anchor="middle" fill="#111827">
+    <!-- módulo genérico: x, nome, função -->
+    <g transform="translate(360,0)">
+      <rect y="160" width="164" height="530" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+      <text x="82" y="192" font-weight="bold">Catálogo</text>
+      <rect x="12" y="215" width="140" height="80" rx="6" fill="#fde68a" stroke="#92400e"/><text x="82" y="262">UI</text>
+      <rect x="12" y="335" width="140" height="80" rx="6" fill="#bbf7d0" stroke="#166534"/><text x="82" y="370">Lógica de</text><text x="82" y="394">negócio</text>
+      <rect x="12" y="455" width="140" height="80" rx="6" fill="#bfdbfe" stroke="#1e40af"/><text x="82" y="490">Acesso a</text><text x="82" y="514">dados</text>
+      <line x1="82" y1="295" x2="82" y2="333" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <line x1="82" y1="415" x2="82" y2="453" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <text x="82" y="580" font-size="16" fill="#374151">buscar livros,</text><text x="82" y="602" font-size="16" fill="#374151">edições, preços</text><text x="82" y="624" font-size="16" fill="#374151">e avaliações</text>
+    </g>
+    <g transform="translate(534,0)">
+      <rect y="160" width="164" height="530" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+      <text x="82" y="192" font-weight="bold">Lojas e Estoque</text>
+      <rect x="12" y="215" width="140" height="80" rx="6" fill="#fde68a" stroke="#92400e"/><text x="82" y="262">UI</text>
+      <rect x="12" y="335" width="140" height="80" rx="6" fill="#bbf7d0" stroke="#166534"/><text x="82" y="370">Lógica de</text><text x="82" y="394">negócio</text>
+      <rect x="12" y="455" width="140" height="80" rx="6" fill="#bfdbfe" stroke="#1e40af"/><text x="82" y="490">Acesso a</text><text x="82" y="514">dados</text>
+      <line x1="82" y1="295" x2="82" y2="333" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <line x1="82" y1="415" x2="82" y2="453" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <text x="82" y="580" font-size="16" fill="#374151">lojas por bairro,</text><text x="82" y="602" font-size="16" fill="#374151">estoque e seção</text><text x="82" y="624" font-size="16" fill="#374151">por unidade</text>
+    </g>
+    <g transform="translate(708,0)">
+      <rect y="160" width="164" height="530" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+      <text x="82" y="192" font-weight="bold">Clientes</text>
+      <rect x="12" y="215" width="140" height="80" rx="6" fill="#fde68a" stroke="#92400e"/><text x="82" y="262">UI</text>
+      <rect x="12" y="335" width="140" height="80" rx="6" fill="#bbf7d0" stroke="#166534"/><text x="82" y="370">Lógica de</text><text x="82" y="394">negócio</text>
+      <rect x="12" y="455" width="140" height="80" rx="6" fill="#bfdbfe" stroke="#1e40af"/><text x="82" y="490">Acesso a</text><text x="82" y="514">dados</text>
+      <line x1="82" y1="295" x2="82" y2="333" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <line x1="82" y1="415" x2="82" y2="453" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <text x="82" y="580" font-size="16" fill="#374151">cadastro,</text><text x="82" y="602" font-size="16" fill="#374151">favoritos e</text><text x="82" y="624" font-size="16" fill="#374151">recomendações</text>
+    </g>
+    <g transform="translate(882,0)">
+      <rect y="160" width="164" height="530" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+      <text x="82" y="192" font-weight="bold">Pedidos</text>
+      <rect x="12" y="215" width="140" height="80" rx="6" fill="#fde68a" stroke="#92400e"/><text x="82" y="262">UI</text>
+      <rect x="12" y="335" width="140" height="80" rx="6" fill="#bbf7d0" stroke="#166534"/><text x="82" y="370">Lógica de</text><text x="82" y="394">negócio</text>
+      <rect x="12" y="455" width="140" height="80" rx="6" fill="#bfdbfe" stroke="#1e40af"/><text x="82" y="490">Acesso a</text><text x="82" y="514">dados</text>
+      <line x1="82" y1="295" x2="82" y2="333" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <line x1="82" y1="415" x2="82" y2="453" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <text x="82" y="580" font-size="16" fill="#374151">reservar, retirar,</text><text x="82" y="602" font-size="16" fill="#374151">comprar e</text><text x="82" y="624" font-size="16" fill="#374151">pontos</text>
+    </g>
+    <g transform="translate(1056,0)">
+      <rect y="160" width="164" height="530" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+      <text x="82" y="192" font-weight="bold">Comunicação</text>
+      <rect x="12" y="215" width="140" height="80" rx="6" fill="#fde68a" stroke="#92400e"/><text x="82" y="262">UI</text>
+      <rect x="12" y="335" width="140" height="80" rx="6" fill="#bbf7d0" stroke="#166534"/><text x="82" y="370">Lógica de</text><text x="82" y="394">negócio</text>
+      <rect x="12" y="455" width="140" height="80" rx="6" fill="#bfdbfe" stroke="#1e40af"/><text x="82" y="490">Acesso a</text><text x="82" y="514">dados</text>
+      <line x1="82" y1="295" x2="82" y2="333" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <line x1="82" y1="415" x2="82" y2="453" stroke="#1f2937" stroke-width="2" marker-end="url(#seta)"/>
+      <text x="82" y="580" font-size="16" fill="#374151">alertas de</text><text x="82" y="602" font-size="16" fill="#374151">reposição e</text><text x="82" y="624" font-size="16" fill="#374151">notificações</text>
+    </g>
+  </g>
+
+  <!-- Banco -->
+  <line x1="1240" y1="430" x2="1315" y2="430" stroke="#1f2937" stroke-width="3" marker-end="url(#seta)"/>
+  <g stroke="#1f2937" stroke-width="3" fill="#f3f4f6">
+    <path d="M1320,250 L1320,610 A120,30 0 0 0 1560,610 L1560,250"/>
+    <ellipse cx="1440" cy="250" rx="120" ry="30"/>
+  </g>
+  <text x="1440" y="320" text-anchor="middle" font-size="22" font-weight="bold" fill="#111827">Banco de dados</text>
+  <text x="1440" y="346" text-anchor="middle" font-size="17" fill="#374151">SQLite (livraria.db)</text>
+  <g font-size="16" fill="#374151" text-anchor="middle">
+    <text x="1440" y="392">livros · edições</text>
+    <text x="1440" y="418">avaliações · promoções</text>
+    <text x="1440" y="444">lojas · estoques</text>
+    <text x="1440" y="470">clientes · favoritos</text>
+    <text x="1440" y="496">reservas · compras</text>
+    <text x="1440" y="522">alertas · notificações</text>
+  </g>
+
+  <!-- Dependências externas -->
+  <g font-size="18" text-anchor="middle" fill="#374151">
+    <rect x="420" y="770" width="300" height="70" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="570" y="800">Pagamento (Pix/cartão)</text><text x="570" y="824" font-size="15">dependência externa — simulada</text>
+    <rect x="860" y="770" width="300" height="70" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="1010" y="800">Email / Push / SMS</text><text x="1010" y="824" font-size="15">dependência externa — simulada</text>
+  </g>
+  <line x1="570" y1="712" x2="570" y2="766" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#seta)"/>
+  <line x1="1010" y1="712" x2="1010" y2="766" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#seta)"/>
+</svg>

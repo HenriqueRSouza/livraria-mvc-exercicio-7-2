@@ -17,4 +17,4 @@ Marcar somente após verificar a tarefa. IDs de aceitação referem-se à especi
 - [x] T10 Desenhar arquitetura do aplicativo (contexto, containers, módulos, fluxo de reserva, decisões) em `docs/arquitetura.md` (exercício 7.1).
 - [x] T11 Separar regras e SQL em models por módulo sem dependência de Flask; C01–C07 passam nos models (exercício 7.2).
 - [x] T12 Separar rotas em controllers (blueprints) e o template único em views por página; C08 passa via HTTP.
-- [x] T13 Verificar regras de dependência do MVC em teste e documentar a arquitetura no README.
+- [x] T13 Documentar a arquitetura MVC no README com diagrama.
