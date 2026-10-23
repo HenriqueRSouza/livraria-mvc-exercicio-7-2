@@ -106,5 +106,5 @@ sequenceDiagram
 | Exercício | Estilo | Onde o desenho aparece |
 |---|---|---|
 | 7.2 | MVC | Models = núcleo + persistência por módulo; Views = templates Jinja; Controllers = blueprints Flask por módulo |
-| 7.3 | Multicamadas (4 camadas) | Apresentação → Aplicação → Domínio → Dados |
+| 7.3 | Multicamadas (4 camadas) | Apresentação → Aplicação → Domínio e Dados (Dados só conhece as entidades do Domínio); nova feature: avaliações de clientes |
 | 7.4 | Clean Architecture | Entidades ← Casos de uso (portas) ← Adaptadores (TXT) ← Frameworks (Flask); DIP isola o núcleo da tecnologia de armazenamento |
