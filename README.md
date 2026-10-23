@@ -1,6 +1,49 @@
-# Livraria — Exercício 6, Lab 05 (SDD)
+# Livraria — Exercícios 7.1 e 7.2 (Arquitetura de Software / MVC)
 
-Demonstração local de uma livraria com regras especificadas **antes** dos testes e da implementação. A fonte de verdade é [docs/specs/livraria.md](docs/specs/livraria.md); o acompanhamento verificável está em [docs/specs/tasks.md](docs/specs/tasks.md). Histórico Git: especificação → testes falhando → implementação → validação/ajustes.
+Refatoração do MVP da livraria do [exercício 6](https://github.com/HenriqueRSouza/livraria-sdd-exercicio-6) para o padrão **Model–View–Controller**, mantendo o front-end funcional e todas as regras da especificação ([docs/specs/livraria.md](docs/specs/livraria.md)). O histórico Git começa no exercício 6 e mostra a refatoração em commits separados.
+
+- **Exercício 7.1 — Design de arquitetura:** [docs/arquitetura.md](docs/arquitetura.md) (contexto, containers, módulos, fluxo de reserva e decisões, em diagramas Mermaid).
+- **Exercício 7.2 — Arquitetura MVC:** código em [`livraria/`](livraria).
+
+## Arquitetura MVC
+
+```mermaid
+flowchart LR
+    U([Usuário no navegador])
+    subgraph C[Controllers · livraria/controllers]
+        cc[catalogo] --- cl[lojas] --- ccl[clientes] --- cp[pedidos] --- cm[comunicacao]
+    end
+    subgraph M[Models · livraria/models]
+        mc[Catalogo] --- ml[Lojas] --- mcl[Clientes] --- mp[Pedidos] --- mm[Comunicacao]
+        db[(SQLite)]
+    end
+    subgraph V[Views · livraria/views/templates]
+        base[base.html] --- paginas[catalogo · livro · lojas · entrada · cliente]
+    end
+    U -- "ação (GET/POST)" --> C
+    C -- "comandos / consultas" --> M
+    M -- "dados" --> C
+    C -- "render_template(dados)" --> V
+    V -- "HTML" --> U
+```
+
+| Camada | Pasta | Responsabilidade | Não pode |
+|---|---|---|---|
+| **Model** | `livraria/models/` | Regras R01–R06 e acesso ao SQLite, divididos por módulo (`catalogo`, `lojas`, `clientes`, `pedidos`, `comunicacao`). `Modelos` reúne todos sobre o mesmo banco. | importar Flask, controllers ou views |
+| **View** | `livraria/views/` | Templates Jinja (um por página, herdando de `base.html`) e formatação (`reais`). | acessar banco ou models |
+| **Controller** | `livraria/controllers/` | Um blueprint Flask por módulo: lê parâmetros/formulários e sessão, chama o model, escolhe a view ou redireciona com mensagem. | executar SQL |
+
+`livraria/__init__.py` (`create_app`) liga as três partes: instancia os models, registra os blueprints e o filtro de view, e trata `RegraInvalida` exibindo a mensagem ao usuário. Essas regras de dependência são verificadas em `tests/test_arquitetura.py`.
+
+### O que mudou em relação ao exercício 6
+
+| Antes (exercício 6) | Depois (MVC) |
+|---|---|
+| `livraria.py`: uma classe `Livraria` com todas as regras e SQL | `livraria/models/`: cinco models coesos + `banco.py` (conexão, esquema, dados de exemplo) |
+| `app.py`: todas as rotas em uma função | `livraria/controllers/`: cinco blueprints; `app.py` só inicia o servidor |
+| `templates/index.html`: um template com `if pagina == ...` | `livraria/views/templates/`: `base.html` + uma view por página |
+
+URLs, regras e dados de exemplo continuam os mesmos; os testes do exercício 6 foram mantidos (ajustados para os novos models) e passam sem alteração de comportamento.
 
 ## Instalar e executar
 
@@ -13,24 +56,24 @@ python3 -m venv .venv
 .venv/bin/python app.py
 ```
 
-Abra **http://127.0.0.1:5000/**. Na primeira execução, `livraria.db` é criado e preenchido automaticamente. O catálogo contém 2 livros, 3 edições e 2 unidades de exemplo; executar novamente preserva cadastros e movimentações. Para recomeçar, remova `livraria.db` **com o servidor parado**, ou use outro banco: `LIVRARIA_DB=/caminho/novo.db .venv/bin/python app.py`. Testes usam SQLite temporário e não alteram o banco da aplicação. `LIVRARIA_SECRET` pode definir a chave de sessão para uma demonstração compartilhada.
+Abra **http://127.0.0.1:5000/**. Na primeira execução, `livraria.db` é criado e preenchido com 2 livros, 3 edições e 2 lojas de exemplo. Para recomeçar, remova `livraria.db` com o servidor parado, ou use outro banco: `LIVRARIA_DB=/caminho/novo.db .venv/bin/python app.py`.
 
 ## Percurso da interface
 
-1. No catálogo, pesquise por título/autor/gênero e abra **A Casa das Marés**. Compare as edições, preços, avaliação, promoção e estoque por loja e seção.
-2. Abra **Lojas** e filtre por bairro para consultar unidades, serviços, pagamentos, café e eventos de exemplo.
-3. Em **Cadastro / entrada**, cadastre nome, email, bairro e interesse `Ficção`. Na área do cliente aparecem recomendação e aviso de promoção locais.
-4. Volte ao livro e use **Reservar para retirada** em uma loja com estoque. A confirmação exibe o código `RES-...`, preço, seção e unidade; a unidade fica indisponível se era o último exemplar.
-5. Em **Minha área**, use **Agilizar compra: retirar com código**; observe compra, histórico e pontos. Alternativamente, cancele uma reserva para devolver estoque ou compre diretamente da unidade.
-6. Para uma edição esgotada, solicite aviso de reposição, clique **Simular +1 no estoque**, e consulte a notificação em **Minha área**. Salve/remova favoritos no detalhe/área.
+1. No **Catálogo**, pesquise por título/autor/gênero e abra **A Casa das Marés**: edições, preço promocional, avaliação e estoque por loja/seção.
+2. Em **Lojas**, filtre por bairro.
+3. Em **Cadastro / entrada**, cadastre-se com interesse `Ficção` e veja recomendação e aviso de promoção em **Minha área**.
+4. Reserve um exemplar (código `RES-...`), depois retire com o código ou cancele; acompanhe histórico e pontos.
+5. Em uma edição esgotada, peça aviso de reposição e use **Simular +1 no estoque**; a notificação aparece em **Minha área**.
 
-## Simulações e limites
+## Limites da demonstração
 
-- SQLite é o único serviço exigido (integrado ao Python). Busca por bairro usa texto local, **não GPS** nem cálculo de distância.
-- Pagamentos, compras e retirada são registros locais; **não há cobrança real**, integração com adquirentes, expiração automática de reservas ou autenticação de produção. Sessão é identificada pelo email cadastrado, sem senha.
-- Reposição é acionada manualmente na interface; avisos de reposição e promoção aparecem apenas no banco/área do cliente, **sem email, push ou SMS**. Recomendações são calculadas por gênero de interesse; promoções e avaliações são dados fictícios locais.
-- Valores monetários são guardados em centavos; fidelidade concede um ponto por real inteiro por compra concluída. Esta aplicação foi feita para execução demonstrativa local.
+Pagamentos, retirada e notificações são simulações locais (sem cobrança, email, push ou GPS). A sessão é identificada pelo email cadastrado, sem senha.
 
-## Rastreabilidade e testes
+## Testes
 
-`test_livraria.py` cobre **C01–C07** (incluindo filtros combinados, busca vazia, estoque independente, último exemplar, cadastro inválido e transições vedadas). `test_app.py` cobre **C08** via requisições HTTP à aplicação Flask. Execute com `.venv/bin/python -m unittest discover -v`.
+`.venv/bin/python -m unittest discover -v` executa:
+
+- `tests/test_models.py` — critérios C01–C07 direto nos models;
+- `tests/test_http.py` — C08, navegação HTTP pelos controllers e views;
+- `tests/test_arquitetura.py` — regras de dependência do MVC.
