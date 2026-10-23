@@ -9,7 +9,6 @@ Continuação da livraria do [exercício 6](https://github.com/HenriqueRSouza/li
 
 O MVP foi refatorado para o padrão Model-View-Controller e continua com front-end funcional.
 
-![Arquitetura MVC](docs/arquitetura-mvc.png)
 
 ```
 livraria/

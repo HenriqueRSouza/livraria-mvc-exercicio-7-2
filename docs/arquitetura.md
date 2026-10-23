@@ -2,7 +2,6 @@
 
 Arquitetura escolhida para o aplicativo da livraria: **monolítica modular**.
 
-![Arquitetura do aplicativo da livraria](arquitetura-7-1.png)
 
 ## Componentes
 
